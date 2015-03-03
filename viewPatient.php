@@ -26,6 +26,9 @@ $statement = $gateway->getPatientById($id);
         <title></title>
     </head>
     <body>
+        <?php require 'toolbar.php' ?> 
+        <?php require 'header.php' ?>
+        <?php require 'mainMenu.php' ?> 
         <?php if (isset($message)) {
             echo '<p>'.$message.'</p>';
         }
@@ -72,27 +75,7 @@ $statement = $gateway->getPatientById($id);
                     
             </tbody>
         </table>
+        <?php require 'footer.php' ?>
     </body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </html>
 

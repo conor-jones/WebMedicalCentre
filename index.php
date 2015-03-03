@@ -1,5 +1,4 @@
 <?php
-require_once 'Patient.php';
 require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
 
@@ -22,6 +21,8 @@ $statement = $gateway->getPatients();
     </head>
     <body>
         <?php require 'toolbar.php' ?>
+        <?php require 'header.php' ?> 
+        <?php require 'mainMenu.php' ?>
         <?php
         if (isset($message)) {
             echo '<p>'.$message.'</p>';
@@ -55,5 +56,6 @@ $statement = $gateway->getPatients();
                 ?>
             </tbody>
         </table>
+        <?php require 'footer.php' ?>
     </body>
 </html>

@@ -33,7 +33,9 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
         <title></title>
     </head>
     <body>
-         <?php require 'toolbar.php' ?>
+        <?php require 'toolbar.php' ?>
+        <?php require 'header.php' ?> 
+        <?php require 'mainMenu.php' ?>
         <?php
         if (isset($errorMessage)) {
             echo '<p>Error: ' .$errorMessage . '</p>';
@@ -149,5 +151,6 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                 </tbody>
             </table>
         </form>
+        <?php require 'footer.php' ?>
     </body>
 </html>

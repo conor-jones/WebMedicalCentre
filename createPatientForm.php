@@ -16,6 +16,8 @@ require 'ensureUserLoggedIn.php';
     </head>
     <body>
         <?php require 'toolbar.php' ?>
+        <?php require 'header.php' ?>
+        <?php require 'mainMenu.php' ?> 
         <h1>Create Patient Form</h1>
         <?php if (isset($errorMessage)) {
             echo '<p>Error: ' . $errorMessage . '</p>';
@@ -85,5 +87,6 @@ require 'ensureUserLoggedIn.php';
             </table>
 
         </form>
+        <?php require 'footer.php' ?>
     </body>
 </html>
