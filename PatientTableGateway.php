@@ -11,7 +11,9 @@ class PatientTableGateway {
     //the getPatients function is used for the view option. it uses the 'SELECT' statement to get the entire patients table
     public function getPatients() {
         //execute a query to get all patients
-        $sqlQuery = "SELECT * FROM patients";
+        $sqlQuery = "SELECT p.*, d.name AS doctorName 
+                    FROM patients p
+                    LEFT JOIN doctors d ON d.doctorID = p.doctorID";
         
         $statement = $this->connection->prepare($sqlQuery);
         $status = $statement->execute();

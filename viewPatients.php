@@ -1,5 +1,5 @@
 <?php
-require_once 'Patient.php';
+//require_once 'Patient.php';
 require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
 
@@ -18,23 +18,24 @@ $statement = $gateway->getPatients();
         <title></title>
     </head>
     <body>
-        <?php require 'toolbar.php' ?>
+        <?php require 'toolbar.php' ?> 
+        <?php require 'header.php' ?>
+        <?php require 'mainMenu.php' ?>
         <?php 
         if (isset($message)) {
             echo '<p>'.$message.'</p>';
         }
         ?>
         <table border="1" style="width:100%">
-            
-            <tbody>
+            <thead>
                 <tr>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Address</th>
                     <th>Phone</th>
-                    <th>Patient Number</th>
+                    <th>Doctor ID</th>
                 </tr>
-            </tbody>
+            </thead>
                 <?php 
                 $row = $statement->fetch(PDO::FETCH_ASSOC);
                 while ($row) {
@@ -42,7 +43,7 @@ $statement = $gateway->getPatients();
                     echo '<td>' .$row['lName'] .'</td>';
                     echo '<td>' .$row['address'] .'</td>';
                     echo '<td>' .$row['phone'] .'</td>';
-                    echo '<td>' .$row['patientNumber'] .'</td>';
+                    echo '<td>' .$row['doctorName'] .'</td>';
                     echo '<td>'
                     . '<a href="viewPatient.php?id=' .$row['patientID'].'">View</a> '
                     . '<a href="editPatientForm.php?id=' .$row['patientID'].'">Edit</a> '

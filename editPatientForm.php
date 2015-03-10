@@ -1,5 +1,5 @@
 <?php
-require_once 'Patient.php';
+//require_once 'Patient.php';
 require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
 
@@ -125,27 +125,28 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                     </tr>
                     
                     <tr>
-                        <td>Patient Number</td>
+                        <td>Doctor ID</td>
                         <td>
-                            <input type='text' name='patientNumber' value='<?php
-                                if (isset($_POST) && isset($_POST['patientNumber'])) {
-                                    echo $_POST['patientNumber'];
-                                }
-                                else echo $row['patientNumber'];
-                                ?>'/>
-                            <span id="patientNumberError" class="error">
-                                <?php 
-                                if (isset($errorMessage) && isset($errorMessage)) {
-                                    echo $errorMessage['patientNumber'];
+                            <select name="doctorID">
+                                <option value="-1">No Doctor</option>
+                                <?php
+                                $d = $doctors->fetch(PDO::FETCH_ASSOC);
+                                while ($d) {
+                                    $selected = "";
+                                    if ($d['doctorID'] == $patient['doctorID']) {
+                                        $selected = "selected";
+                                    }
+                                    echo '<option value="' .$d['patientID'] .'" ' .$selected . '>' .$d['doctorID'] . '</option>';
+                                    $d = $doctors->fetch(PDO::FETCH_ASSOC);
                                 }
                                 ?>
-                            </span>
+                            </select>
                         </td>
                     </tr>
                     <tr>
                         <td></td>
                         <td>
-                            <input type="submit" value="Update Patient" name="updatePatient"/>
+                            <input  type="submit" value="Update Patient" name="updatePatient"/>
                         </td>
                     </tr>
                 </tbody>

@@ -1,7 +1,8 @@
 <?php
-require_once 'Patient.php';
+//require_once 'Patient.php';
 require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
+require_once 'DoctorTableGateway.php';
 
 $id = session_id();
 if ($id == "") {
@@ -14,9 +15,10 @@ if (!isset ($_GET) || !isset($_GET['id'])) {
 $id = $_GET['id'];
 
 $connection = Connection::getInstance();
-$gateway = new PatientTableGateway($connection);
+$patientGateway = new PatientTableGateway($connection);
+$doctorGateway = new DoctorTableGateway($connection);
 
-$statement = $gateway->getPatientById($id);
+$statement = $patientGateway->getPatientById($id);
 ?>
 <!DOCTYPE html>
 <html>  
@@ -38,6 +40,12 @@ $statement = $gateway->getPatientById($id);
             <tbody>
                 <?php
                 $row = $statement->fetch(PDO::FETCH_ASSOC);
+                
+                    echo '<tr>';
+                    echo '<td>Patient ID</td>'
+                    .  '<td>' .$row['patientID'] .'</td>';
+                    echo '<tr>';
+                
                     echo '<tr>';
                     echo '<td>First Name</td>'
                     . '<td>' .$row['fName'] .'</td>';
@@ -59,8 +67,8 @@ $statement = $gateway->getPatientById($id);
                     echo '</tr>';
                     
                     echo '<tr>';
-                    echo '<td>Patient Number</td>'
-                    . '<tr>' .$row['patientNumber'] .'</td>';
+                    echo '<td>Doctor ID</td>'
+                    . '<tr>' .$row['doctorID'] .'</td>';
                     echo '</tr>';
                 ?>
             </tbody>
