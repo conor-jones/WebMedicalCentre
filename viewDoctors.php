@@ -43,8 +43,8 @@ $statement = $gateway->getDoctors();
                     echo '<td>' .$row['email'] .'</td>';
                     echo '<td>' .$row['expertise'] .'</td>';
                     echo '<td>'
-                    . '<a href="viewDoctors.php?id=' .$row['doctorID'].'">View</a> '
-                    . '<a href="editDoctor.php?id=' .$row['doctorID'].'">Edit</a>'
+                    . '<a href="viewDoctor.php?id=' .$row['doctorID'].'">View</a> '
+                    . '<a href="editDoctorForm.php?id=' .$row['doctorID'].'">Edit</a>'
                     . '<a class="deletePatient" href="deleteDoctor.php?id=' .$row['doctorID'].'">delete</a>'
                     . '</td>';
                     echo '<tr>';
