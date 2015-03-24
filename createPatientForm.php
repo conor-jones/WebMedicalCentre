@@ -1,10 +1,18 @@
 <?php
+require_once 'Connection.php';
+require_once 'DoctorTableGateway.php';
+
 $id = session_id();
 if ($id == "") {
     session_start();
 }
 
 require 'ensureUserLoggedIn.php';
+
+$connection = Connection::getInstance();
+$doctorGateway = new DoctorTableGateway($connection);
+
+$doctors = $doctorGateway->getDoctors();
 ?>
 
 <!DOCTYPE html>
@@ -68,12 +76,18 @@ require 'ensureUserLoggedIn.php';
                         </td>
                     </tr>
                     <tr>
-                        <td>Patient Number</td>
+                        <td>Doctor</td>
                         <td>
-                            <input type="text" name="patientNumber" value="" />
-                            <span id="patientNumberError" class="error">
-                                
-                            </span>
+                            <select name="doctorID">
+                                <option value="-1">No Doctor</option>
+                                <?php 
+                                $d = $doctors->fetch(PDO::FETCH_ASSOC);
+                                while ($d) {
+                                    echo '<option value="' .$d['doctorID'].'">' .$d['name'] . '</option>';
+                                    $d = $doctors->fetch(PDO::FETCH_ASSOC);
+                                }
+                                ?>
+                            </select>
                         </td>
                     </tr>
                     

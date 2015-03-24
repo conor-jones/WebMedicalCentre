@@ -18,14 +18,6 @@ window.onload = function() {
         editPatientForm.addEventListener('submit', validatePatientForm);
     }
     
-    function validatePatientForm(event) {
-        var form = event.target;
-        
-        if (!confirm("Is the form data correct?")) {
-            event.prevent.default();
-        }
-    }
-    
    
     
     //validates create patient
@@ -41,7 +33,7 @@ window.onload = function() {
         var lName = form['lName'].value;
         var address = form['address'].value;
         var phone = form['phone'].value;
-        var patientNumber = form['patientNumber'].value;
+        var patientNumber = form['doctorID'].value;
         
         var spanElements = document.getElementsByClassName("error");
         for (var i =0; i !== spanElements.length; i++) {
@@ -62,8 +54,8 @@ window.onload = function() {
         if (phone === "") {
             errors["phone"] = "This field cannot be left empty!";
         }
-        if (patientNumber === "") {
-            errors["patientNumber"] = "This field cannot be left empty!"
+        if (doctorID === "") {
+            errors["doctorID"] = "This field cannot be left empty!"
         }
         
         var valid = true;

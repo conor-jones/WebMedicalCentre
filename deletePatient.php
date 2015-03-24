@@ -1,5 +1,4 @@
 <?php
-require_once 'Patient.php';
 require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
 
@@ -20,5 +19,5 @@ $gateway = new PatientTableGateway($connection);
 
 $gateway->deletePatient($id);
 
-header("Location: home.php");
+header("Location: viewPatients.php");
 ?>

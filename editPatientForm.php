@@ -2,6 +2,7 @@
 //require_once 'Patient.php';
 require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
+require_once 'DoctorTableGateway.php';
 
 $id = session_id();
 if ($id =="") {
@@ -18,11 +19,14 @@ $id = $_GET['id'];
 
 $connection = Connection::getInstance();
 $gateway = new PatientTableGateway($connection);
+$doctorGateway = new DoctorTableGateway($connection);
 
 $statement = $gateway->getPatientById($id);
 if ($statement->rowCount() !== 1) {
     die ("Illegal Request");
 }
+
+$doctors = $doctorGateway->getDoctors();
 
 $row = $statement->fetch(PDO::FETCH_ASSOC);
 ?>
@@ -125,18 +129,14 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                     </tr>
                     
                     <tr>
-                        <td>Doctor ID</td>
+                        <td>Doctor</td>
                         <td>
                             <select name="doctorID">
                                 <option value="-1">No Doctor</option>
-                                <?php
+                                <?php 
                                 $d = $doctors->fetch(PDO::FETCH_ASSOC);
                                 while ($d) {
-                                    $selected = "";
-                                    if ($d['doctorID'] == $patient['doctorID']) {
-                                        $selected = "selected";
-                                    }
-                                    echo '<option value="' .$d['patientID'] .'" ' .$selected . '>' .$d['doctorID'] . '</option>';
+                                    echo '<option value="' .$d['doctorID'].'">' .$d['name'] . '</option>';
                                     $d = $doctors->fetch(PDO::FETCH_ASSOC);
                                 }
                                 ?>

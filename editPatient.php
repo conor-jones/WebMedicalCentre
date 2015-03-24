@@ -1,5 +1,5 @@
 <?php
-require_once 'Patient.php';
+
 require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
 
@@ -18,12 +18,12 @@ $fName = $_POST['fName'];
 $lName = $_POST['lName'];
 $address = $_POST['address'];
 $phone = $_POST['phone'];
-$patientNumber = $_POST['patientNumber'];
+$doctorID = $_POST['doctorID'];
 
-$id = $gateway->updatePatient($patientID, $fName, $lName, $address, $phone, $patientNumber);
+$id = $gateway->updatePatient($patientID, $fName, $lName, $address, $phone, $doctorID);
 
 $message = "Patient updated successfully";
 
-header('Location: home.php');
+header('Location: viewPatients.php');
 
 

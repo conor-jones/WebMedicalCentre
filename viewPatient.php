@@ -67,8 +67,8 @@ $statement = $patientGateway->getPatientById($id);
                     echo '</tr>';
                     
                     echo '<tr>';
-                    echo '<td>Doctor ID</td>'
-                    . '<tr>' .$row['doctorID'] .'</td>';
+                    echo '<td>Doctor</td>'
+                    . '<tr>' .$row['doctorName'] .'</td>';
                     echo '</tr>';
                 ?>
             </tbody>

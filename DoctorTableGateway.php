@@ -69,7 +69,7 @@ class DoctorTableGateway {
                     "phone = :phone," .
                     "email = :email, " .
                     "expertise = :expertise, " . 
-                    "WHERE doctorId = :id";
+                    "WHERE doctorID = :id";
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array(

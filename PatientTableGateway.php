@@ -47,10 +47,10 @@ class PatientTableGateway {
     
     
     //the insertPatient is used for creating new patients for the table. it uses the 'INSERT' statement to input new data intop the database table 
-    public function insertPatient($fn, $ln, $a, $p, $pn) {
+    public function insertPatient($fn, $ln, $a, $p, $dId) {
         $sqlQuery = "INSERT INTO patients " .
-                "(fName, lName, address, phone, patientNumber)" .
-                "VALUES (:fName, :lName, :address, :phone, :patientNumber)";
+                "(fName, lName, address, phone, doctorID)" .
+                "VALUES (:fName, :lName, :address, :phone, :doctorID)";
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array(
@@ -58,7 +58,7 @@ class PatientTableGateway {
             "lName" => $ln,
             "address" => $a,
             "phone" => $p,
-            "patientNumber" => $pn
+            "doctorID" => $dId
         );
         
         
@@ -93,13 +93,13 @@ class PatientTableGateway {
     
     
     //the updatePatient  
-    public function updatePatient ($id, $fn, $ln, $a, $p, $pn) {
+    public function updatePatient ($id, $fn, $ln, $a, $p, $dId) {
         $sqlQuery = "UPDATE patients SET " .
                     "fName = :fName," .
                     "lName = :lName," .
                     "address = :address, " .
                     "phone = :phone, " . 
-                    "patientNumber = :patientNumber " .
+                    "doctorID = :doctorID " .
                     "WHERE patientId = :id";
         
         $statement = $this->connection->prepare($sqlQuery);
@@ -109,7 +109,7 @@ class PatientTableGateway {
             "lName" => $ln,
             "address" => $a,
             "phone" => $p,
-            "patientNumber" => $pn
+            "doctorID" => $dId
         );
         
         //echo '<pre>';

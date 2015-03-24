@@ -23,6 +23,6 @@ $id = $gateway->updateDoctor($doctorID, $name, $phone, $email, $expertise);
 
 $message = "Doctor updated successfully";
 
-header('Location: home.php');
+header('Location: viewDoctors.php');
 
 
