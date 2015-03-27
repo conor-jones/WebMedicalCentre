@@ -4,8 +4,8 @@ require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
 require_once 'DoctorTableGateway.php';
 
-$id = session_id();
-if ($id == "") {
+$sessionId = session_id();
+if ($sessionId == "") {
     session_start();
 }
 

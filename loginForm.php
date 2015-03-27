@@ -21,13 +21,17 @@
                         <td>
                             <input type="text" 
                                    name="username" 
-                                   value="<?php echo $username; ?>"/>
-                            <span id="usernameError" class="error">
-                                <?php
-                                if (isset($errorMessage) && isset($errorMessage['username'])) {
-                                    echo $errorMessage['username'];
-                                }
-                                ?>
+                                   value="<?php
+                                       if (isset($_POST) && isset($_POST['username'])) {
+                                           echo $_POST['username'];
+                                       }
+                                       ?>" />
+                             <span id="usernameError" class="error">
+                                    <?php
+                                    if (isset($errorMessage) && isset($errorMessage['username'])) {
+                                        echo $errorMessage['username'];
+                                    }
+                                    ?>
                             </span>
                         </td>
                     </tr>

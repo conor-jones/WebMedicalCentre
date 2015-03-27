@@ -39,7 +39,7 @@ class DoctorTableGateway {
     }
     
     public function insertDoctor($n, $p, $e, $ex) {
-        $sqlQuery = "INSERT INTO patients " .
+        $sqlQuery = "INSERT INTO doctors " .
                 "(name, phone, email, expertise)" .
                 "VALUES (:name, :phone, :email, :expertise)";
         
@@ -63,7 +63,7 @@ class DoctorTableGateway {
         return $id;
     }
     
-    public function updateDoctor ($id, $n, $p, $e, $ex) {
+    public function updateDoctor ($n, $p, $e, $ex) {
         $sqlQuery = "UPDATE doctors SET " .
                     "name = :name," .
                     "phone = :phone," .
@@ -73,10 +73,9 @@ class DoctorTableGateway {
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array(
-            "doctorID" => $id,
             "name" => $n,
             "phone" => $p,
-            "email" => $e,
+            "email" => $email,
             "expertise" => $ex
         );
         
@@ -90,5 +89,6 @@ class DoctorTableGateway {
         
         return ($statement->rowCount() ==1);
     }
+    
     
 }

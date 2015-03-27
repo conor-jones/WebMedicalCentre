@@ -41,10 +41,10 @@ if (empty($errorMessage)) {
 }
 if (empty($errorMessage)) {
     $_SESSION['username'] = $username;
-    header('Location: home.php');
+    header('Location: index.php');
 }
 else {
-    require 'login.php';
+    require 'loginForm.php';
 }
 
 

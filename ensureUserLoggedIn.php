@@ -6,6 +6,6 @@ if ($session_id == "") {
 }
 
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
+    header("Location: loginForm.php");
 }
 

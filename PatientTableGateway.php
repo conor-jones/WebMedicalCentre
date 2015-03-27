@@ -29,7 +29,10 @@ class PatientTableGateway {
     //the getPatientsById function is used for viewing individual patients. it uses the 'SELECT' statement to get the patients one at a time by there patientID
     public function getPatientById($id) {
         //execute a query to get the user with the specific id
-        $sqlQuery = "SELECT * FROM patients WHERE patientId = :id";
+        $sqlQuery = "SELECT p.*, d.name AS doctorName 
+                    FROM patients p
+                    LEFT JOIN doctors d ON d.doctorID = p.doctorID
+                    WHERE p.patientId = :id";
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array (
@@ -65,7 +68,7 @@ class PatientTableGateway {
         $status = $statement->execute($params);
         
         if (!$status) {
-            die("could not insertpatient");
+            die("could not insert patient");
         }
         
         $id = $this->connection->lastInsertId();
