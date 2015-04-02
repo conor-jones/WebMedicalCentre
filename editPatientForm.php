@@ -4,6 +4,7 @@ require_once 'Connection.php';
 require_once 'PatientTableGateway.php';
 require_once 'DoctorTableGateway.php';
 
+
 $id = session_id();
 if ($id =="") {
     session_start();
@@ -21,14 +22,14 @@ $connection = Connection::getInstance();
 $gateway = new PatientTableGateway($connection);
 $doctorGateway = new DoctorTableGateway($connection);
 
-$statement = $gateway->getPatientById($id);
-if ($statement->rowCount() !== 1) {
+$patients = $gateway->getPatientById($id);
+if ($patients->rowCount() !== 1) {
     die ("Illegal Request");
 }
 
 $doctors = $doctorGateway->getDoctors();
 
-$row = $statement->fetch(PDO::FETCH_ASSOC);
+$patient = $patients->fetch(PDO::FETCH_ASSOC);
 ?>
 <html>
     <head>
@@ -59,7 +60,7 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                             if (isset($_POST) && isset($_POST['fName'])) {
                                 echo $_POST['fName'];
                             }
-                            else echo $row['fName'];
+                            else echo $patient['fName'];
                             ?>"/>
                             <span id="fNameError" class="error">
                                 <?php
@@ -78,7 +79,7 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                             if (isset($_POST) && isset($_POST['lName'])) {
                                 echo $_POST['lName'];
                             }
-                            else echo $row['lName'];
+                            else echo $patient['lName'];
                             ?>"/>
                             <span id="lNameError" class="error">
                                 <?php
@@ -97,7 +98,7 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                             if (isset($_POST) && isset($_POST['address'])) {
                                 echo $_POST['address'];
                             }
-                            else echo $row['address'];
+                            else echo $patient['address'];
                             ?>'/>
                             <span id='addressError' class='error'>
                                 <?php 
@@ -116,7 +117,7 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                                 if (isset($_POST) && isset($_POST['phone'])) {
                                     echo $_POST['phone'];
                                 }
-                                else echo $row['phone'];
+                                else echo $patient['phone'];
                                 ?>'/>
                             <span id='phoneError' class='error'>
                                 <?php
@@ -136,7 +137,11 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                                 <?php 
                                 $d = $doctors->fetch(PDO::FETCH_ASSOC);
                                 while ($d) {
-                                    echo '<option value="' .$d['doctorID'].'">' .$d['name'] . '</option>';
+                                    $selected = "";
+                                    if ($d['doctorID'] == $patient['doctorID']) {
+                                        $selected = "selected";
+                                    }
+                                    echo '<option value="' . $d['doctorID'] . '" ' .$selected . '>' .$d['name'] . '</option>';
                                     $d = $doctors->fetch(PDO::FETCH_ASSOC);
                                 }
                                 ?>
@@ -147,6 +152,7 @@ $row = $statement->fetch(PDO::FETCH_ASSOC);
                         <td></td>
                         <td>
                             <input  type="submit" value="Update Patient" name="updatePatient"/>
+                            <input  type="button" value="Cancel" name="Cancel" onclick="document.loaction.href = 'viewPatients.php'"/>
                         </td>
                     </tr>
                 </tbody>

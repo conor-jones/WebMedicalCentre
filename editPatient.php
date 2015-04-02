@@ -13,17 +13,18 @@ require 'ensureUserLoggedIn.php';
 $connection = Connection::getInstance();
 $gateway = new PatientTableGateway($connection);
 
-$patientID = $_POST['id'];
-$fName = $_POST['fName'];
-$lName = $_POST['lName'];
-$address = $_POST['address'];
-$phone = $_POST['phone'];
-$doctorID = $_POST['doctorID'];
+$patientID = filter_input(INPUT_POST, 'id',          FILTER_SANITIZE_NUMBER_INT);
+$fName = filter_input(INPUT_POST, 'fName',          FILTER_SANITIZE_NUMBER_STRING);
+$lName = filter_input(INPUT_POST, 'lName',          FILTER_SANITIZE_NUMBER_STRING);
+$address = filter_input(INPUT_POST, 'address',          FILTER_SANITIZE_NUMBER_STRING);
+$phone = filter_input(INPUT_POST, 'phone',          FILTER_SANITIZE_NUMBER_STRING);
+$doctorID = filter_input(INPUT_POST, 'dId',          FILTER_SANITIZE_NUMBER_INT);
+if ($doctorID == -1) {
+    $managerID = NULL;
+}
 
-$id = $gateway->updatePatient($patientID, $fName, $lName, $address, $phone, $doctorID);
+$gateway->updatePatient($id,$fn, $ln, $a, $p, $dId);
 
-$message = "Patient updated successfully";
-
-header('Location: viewPatients.php');
+    header('Location: viewPatients.php');
 
 

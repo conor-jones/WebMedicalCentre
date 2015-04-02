@@ -33,7 +33,7 @@ window.onload = function() {
         var lName = form['lName'].value;
         var address = form['address'].value;
         var phone = form['phone'].value;
-        var patientNumber = form['doctorID'].value;
+        var doctorID = form['doctorID'].value;
         
         var spanElements = document.getElementsByClassName("error");
         for (var i =0; i !== spanElements.length; i++) {

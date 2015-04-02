@@ -12,6 +12,7 @@ require 'ensureUserLoggedIn.php';
 $connection = Connection::getInstance();
 $doctorGateway = new DoctorTableGateway($connection);
 
+
 $doctors = $doctorGateway->getDoctors();
 ?>
 

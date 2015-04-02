@@ -53,7 +53,7 @@ class PatientTableGateway {
     public function insertPatient($fn, $ln, $a, $p, $dId) {
         $sqlQuery = "INSERT INTO patients " .
                 "(fName, lName, address, phone, doctorID)" .
-                "VALUES (:fName, :lName, :address, :phone, :doctorID)";
+                " VALUES (:fName, :lName, :address, :phone, :doctorID)";
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array(
@@ -98,12 +98,12 @@ class PatientTableGateway {
     //the updatePatient  
     public function updatePatient ($id, $fn, $ln, $a, $p, $dId) {
         $sqlQuery = "UPDATE patients SET " .
-                    "fName = :fName," .
-                    "lName = :lName," .
-                    "address = :address, " .
-                    "phone = :phone, " . 
-                    "doctorID = :doctorID " .
-                    "WHERE patientId = :id";
+                    " fName = :fName, " .
+                    " lName = :lName, " .
+                    " address = :address, " .
+                    " phone = :phone, " . 
+                    " doctorID = :doctorID " .
+                    " WHERE patientId = :id";
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array(
@@ -123,6 +123,10 @@ class PatientTableGateway {
         
         $status = $statement->execute($params);
         
+        if(!$status)
+        {
+            die("could not update patient");
+        }
         return ($statement->rowCount() ==1);
     }
     
