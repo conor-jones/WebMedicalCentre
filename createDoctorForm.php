@@ -20,7 +20,7 @@ $doctors = $doctorGateway->getDoctors()
     <head>
         <meta charset="UTF-8">
         <title></title>
-        <!-- add js file for create validation -->
+        <script type="text/javascript" src="js/Doctor.js"></script>
     </head>
     <body>
         <?php require 'toolbar.php'?>

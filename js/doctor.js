@@ -1,5 +1,5 @@
 window.onload = function() {
-    //validates delete doctor
+    //validates delete patient
     var deleteLinks = document.getElementsByClassName('deleteDoctor');
     for (var i =0; i !== deleteLinks.length; i++) {
         var link = deleteLinks[i];
@@ -11,9 +11,17 @@ window.onload = function() {
             event.preventDefault();
         }
     }
-
-
-    var createDoctorForm = document.getElementsById('createDoctorForm');
+    
+    //validates update patient
+    var editDoctorForm = document.getElementById('editDoctorForm');
+    if (editDoctorForm !== null) {
+        editDoctorForm.addEventListener('submit', validateDoctorForm);
+    }
+    
+   
+    
+    //validates create patient
+    var createDoctorForm = document.getElementById('createDoctorForm');
     if (createDoctorForm !== null) {
         createDoctorForm.addEventListener('submit', validateDoctorForm);
     }
@@ -27,39 +35,37 @@ window.onload = function() {
         var expertise = form['expertise'].value;
         
         var spanElements = document.getElementsByClassName("error");
-        for (var i=0; i !== spanElements.length; i++) {
-            spanElements[i].innerHTML = "";         
+        for (var i =0; i !== spanElements.length; i++) {
+            spanElements[i].innerHTML = "";
         }
         
-        var errors = new Objects();
+        var errors = new Object();
         
         if (name === "") {
-            errors["name"] = "This field cannot be left empty";
+            errors["name"] = "This field cannot be left empty!"; 
         }
         if (phone === "") {
-            errors["phone"] = "This field cannot be left empty";
+            errors["phone"] = "this field cannot be left empty!";
         }
         if (email === "") {
-            errors["email"] = "This field cannot be left empty";
+            errors["email"] = "This field cannot be left empty!";
         }
         if (expertise === "") {
-            errors["expertise"] = "This field cannot be left empty";
+            errors["expertise"] = "This field cannot be left empty!";
         }
         
         var valid = true;
         for (var index in errors) {
             valid = false;
             var errorMessage = errors[index];
-            var spanElement = document.getElementsById(index + "Error");
+            var spanElement = document.getElementById(index + "Error");
             spanElement.innerHTML = errorMessage;
         }
         if (!valid) {
             event.preventDefault();
         }
-        else if (!confirm("save Doctor?")) {
+        else if (!confirm("Save Doctor?")) {
             event.preventDefault();
         }
     }
 };
-
-

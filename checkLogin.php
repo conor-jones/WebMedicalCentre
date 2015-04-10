@@ -16,7 +16,6 @@ if ($id == "") {
 $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
 $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
 
-
 $errorMessage = array();
 if ($username === FALSE || $username === '') {
     $errorMessage['username'] = 'Username must not be blank<br/>';
@@ -28,14 +27,15 @@ if ($password === FALSE || $password === '') {
 
 if (empty($errorMessage)) {
     $statement = $gateway->getUserByUsername($username);
-    if ($statement->rowCount() !=1) {
-        $errormessage['username'] = 'Username not registered<br/>';
+    if ($statement->rowCount() != 1) {
+        $errorMessage['username'] = 'Username not registered<br/>';
     }
-    
-    else if ($statement->rowCount() ==1) {
+    else if ($statement->rowCount() == 1) {
         $row = $statement->fetch(PDO::FETCH_ASSOC);
+        //$hash = $row['password'];
+        //if (!password_verify($password, $hash)) {
         if ($password !== $row['password']) {
-            $errorMessage['password'] = 'Invalid password <br/>';
+            $errorMessage['password'] = 'Invalid password<br/>';
         }
     }
 }

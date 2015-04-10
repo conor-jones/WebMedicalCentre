@@ -6,9 +6,6 @@ require_once 'PatientTableGateway.php';
 require 'ensureUserLoggedIn.php';
 
 $connection = Connection :: getInstance();
-$gateway = new PatientTableGateway($connection);
-
-$statement = $gateway->getPatients();
 ?>
 <!DOCTYPE html>
 <html>
