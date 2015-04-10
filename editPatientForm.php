@@ -34,7 +34,7 @@ $patient = $patients->fetch(PDO::FETCH_ASSOC);
 <html>
     <head>
         <meta charset="UTF-8">
-        <script type="text/javascript" src="js/Patient.js"></script>
+        <script type="text/javascript" src="js/patient.js"></script>
         <title></title>
     </head>
     <body>
@@ -50,7 +50,7 @@ $patient = $patients->fetch(PDO::FETCH_ASSOC);
               name="editPatientForm" 
               action="editPatient.php" 
               method="POST">
-            <input type="hidden" name="id" value="<?php echo $id; ?>" /> 
+            <input type="hidden" name="id" value="<?php echo $patientID; ?>" /> 
             <table>
                 <tbody>
                     <tr>

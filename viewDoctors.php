@@ -14,7 +14,7 @@ $statement = $gateway->getDoctors();
 <html>
     <head>
         <meta charset="UTF-8">
-        <!-- add js link for doctor here -->
+        <script type="text/javascript" src="js/doctor.js"></script>
         <title></title>
     </head>
     <body>
@@ -45,7 +45,7 @@ $statement = $gateway->getDoctors();
                     echo '<td>'
                     . '<a href="viewDoctor.php?id=' .$row['doctorID'].'">View</a> '
                     . '<a href="editDoctorForm.php?id=' .$row['doctorID'].'">Edit</a>'
-                    . '<a class="deletePatient" href="deleteDoctor.php?id=' .$row['doctorID'].'"> delete</a>'
+                    . '<a class="deleteDoctor" href="deleteDoctor.php?id=' .$row['doctorID'].'"> delete</a>'
                     . '</td>';
                     echo '<tr>';
                     $row = $statement-> fetch(PDO::FETCH_ASSOC);

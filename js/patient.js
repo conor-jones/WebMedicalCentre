@@ -7,7 +7,7 @@ window.onload = function() {
     }
     
     function deleteLink (event) {
-        if (!confirm("are you sure you want to delete this ptient?")) {
+        if (!confirm("are you sure you want to delete this patient?")) {
             event.preventDefault();
         }
     }

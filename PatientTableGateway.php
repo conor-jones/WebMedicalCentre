@@ -9,14 +9,36 @@ class PatientTableGateway {
     }
     
     //the getPatients function is used for the view option. it uses the 'SELECT' statement to get the entire patients table
-    public function getPatients() {
+    public function getPatients($sortOrder) {
         //execute a query to get all patients
         $sqlQuery = "SELECT p.*, d.name AS doctorName 
                     FROM patients p
-                    LEFT JOIN doctors d ON d.doctorID = p.doctorID";
+                    LEFT JOIN doctors d ON d.doctorID = p.doctorID
+                    ORDER BY " . $sortOrder;
         
         $statement = $this->connection->prepare($sqlQuery);
+        
         $status = $statement->execute();
+        
+        if(!$status) {
+            die("Could not retrieve patients");
+        }
+        
+        return $statement;
+    }
+    
+    public function getPatientsByDoctorId($doctorID) {
+        //execute a query to get all patients
+        $sqlQuery = "SELECT p.*, d.name AS doctorName 
+                    FROM patients p
+                    LEFT JOIN doctors d ON d.doctorID = p.doctorID
+                    WHERE p.doctorID = :doctorID";
+        
+        $params = array(
+            'doctorID' => $doctorID
+        );
+        $statement = $this->connection->prepare($sqlQuery);
+        $status = $statement->execute($params);
         
         if(!$status) {
             die("Could not retrieve patients");
@@ -27,16 +49,16 @@ class PatientTableGateway {
     
     
     //the getPatientsById function is used for viewing individual patients. it uses the 'SELECT' statement to get the patients one at a time by there patientID
-    public function getPatientById($id) {
+    public function getPatientById($patientID) {
         //execute a query to get the user with the specific id
         $sqlQuery = "SELECT p.*, d.name AS doctorName 
                     FROM patients p
                     LEFT JOIN doctors d ON d.doctorID = p.doctorID
-                    WHERE p.patientId = :id";
+                    WHERE p.patientId = :patientID";
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array (
-            "id" => $id
+            "patientID" => $patientID
         );
         
         $status = $statement->execute($params);
@@ -52,8 +74,8 @@ class PatientTableGateway {
     //the insertPatient is used for creating new patients for the table. it uses the 'INSERT' statement to input new data intop the database table 
     public function insertPatient($fn, $ln, $a, $p, $dId) {
         $sqlQuery = "INSERT INTO patients " .
-                "(fName, lName, address, phone, doctorID)" .
-                " VALUES (:fName, :lName, :address, :phone, :doctorID)";
+                "(fName, lName, address, phone, doctorID) " .
+                "VALUES (:fName, :lName, :address, :phone, :doctorID)";
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array(
@@ -71,9 +93,9 @@ class PatientTableGateway {
             die("could not insert patient");
         }
         
-        $id = $this->connection->lastInsertId();
+        $patientID = $this->connection->lastInsertId();
         
-        return $id;
+        return $patientID;
     }
     
     
@@ -96,31 +118,28 @@ class PatientTableGateway {
     
     
     //the updatePatient  
-    public function updatePatient ($id, $fn, $ln, $a, $p, $dId) {
+    public function updatePatient ($pid, $fn, $ln, $a, $p, $dId) {
         $sqlQuery = "UPDATE patients SET " .
                     " fName = :fName, " .
                     " lName = :lName, " .
                     " address = :address, " .
                     " phone = :phone, " . 
                     " doctorID = :doctorID " .
-                    " WHERE patientId = :id";
+                    " WHERE patientID = :patientID";
         
         $statement = $this->connection->prepare($sqlQuery);
         $params = array(
-            "id" => $id,
+            "patientID" => $pid,
             "fName" => $fn,
             "lName" => $ln,
             "address" => $a,
             "phone" => $p,
             "doctorID" => $dId
         );
-        
-        //echo '<pre>';
-        //print_r($_POST);
-        //print_r($params);
-        //print_r($sqlQuery);
-        //echo '</pre>';
-        
+       echo '<pre>';
+       print_r($params);
+       print_r($sqlQuery);
+       echo '</pre>';
         $status = $statement->execute($params);
         
         if(!$status)

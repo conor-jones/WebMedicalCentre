@@ -1,4 +1,18 @@
 window.onload = function() {
+    //validates delete doctor
+    var deleteLinks = document.getElementsByClassName('deleteDoctor');
+    for (var i =0; i !== deleteLinks.length; i++) {
+        var link = deleteLinks[i];
+        link.addEventListener("click", deleteLink);
+    }
+    
+    function deleteLink (event) {
+        if (!confirm("are you sure you want to delete this doctor?")) {
+            event.preventDefault();
+        }
+    }
+
+
     var createDoctorForm = document.getElementsById('createDoctorForm');
     if (createDoctorForm !== null) {
         createDoctorForm.addEventListener('submit', validateDoctorForm);

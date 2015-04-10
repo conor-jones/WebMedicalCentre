@@ -19,10 +19,17 @@ $phone = $_POST['phone'];
 $email = $_POST['email'];
 $expertise = $_POST['expertise'];
 
-$id = $gateway->updateDoctor($doctorID, $name, $phone, $email, $expertise);
+    echo '<pre>';
 
-$message = "Doctor updated successfully";
+      print_r($params);
+      print_r($sqlQuery);
+      echo '</pre>';
 
-header('Location: viewDoctors.php');
+
+    $gateway->updateDoctor($doctorID, $name, $phone, $email, $expertise);
+    //header('Location: viewDoctors.php');
+
+    //require 'createDoctorForm.php';
+
 
 

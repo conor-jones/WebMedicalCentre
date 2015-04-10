@@ -5,16 +5,27 @@ require_once 'PatientTableGateway.php';
 
 require 'ensureUserLoggedIn.php';
 
+if (isset($_GET) && isset($_GET['sortOrder'])){
+    $sortOrder = $_GET['sortOrder'];
+    $columnNames = array("fName", "lName", "address", "phone", "doctorName");
+    if (!in_array($sortOrder, $columnNames)){
+        $sortOrder = 'fName';
+    }
+}
+else {
+    $sortOrder = 'fName';
+}
+
 $connection = Connection :: getInstance();
 $gateway = new PatientTableGateway($connection);
 
-$statement = $gateway->getPatients();
+$statement = $gateway->getPatients($sortOrder);
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
-        <script type="text/javascript" src="js/Patient.js"></script>
+        <script type="text/javascript" src="js/patient.js"></script>
         <title></title>
     </head>
     <body>
@@ -29,11 +40,11 @@ $statement = $gateway->getPatients();
         <table border="1" style="width:100%">
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                    <th>Doctor ID</th>
+                    <th><a href="viewPatients.php?sortOrder=fName">First Name</a></th>
+                    <th><a href="viewPatients.php?sortOrder=lName">Last Name</a></th>
+                    <th><a href="viewPatients.php?sortOrder=address">Address</a></th>
+                    <th><a href="viewPatients.php?sortOrder=phone">Phone</a></th>
+                    <th><a href="viewPatients.php?sortOrder=doctorName">Doctor ID</a></th>
                 </tr>
             </thead>
                 <?php 
